@@ -16,6 +16,9 @@ password = 'sparta'
 cxn_str = f'mongodb+srv://Afif:{password}@cluster0.gurin3n.mongodb.net/?retryWrites=true&w=majority'
 client = MongoClient(cxn_str)
 
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 db = client.dbsparta
 
 @app.route('/')
