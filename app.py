@@ -1,22 +1,19 @@
-from flask import (
-    Flask,
-    request,
-    render_template,
-    redirect,
-    url_for,
-    jsonify
-)
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
+from flask import Flask, render_template, request, jsonify
 from pymongo import MongoClient
-import requests
-from datetime import datetime
 
-app = Flask(__name__)
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
-password = 'sparta'
-cxn_str = f'mongodb+srv://Afif:{password}@cluster0.gurin3n.mongodb.net/?retryWrites=true&w=majority'
-client = MongoClient(cxn_str)
+MONGODB_URI = os.environ.get("MONGODB_URI")
+DB_NAME =  os.environ.get("DB_NAME")
 
-db = client.dbsparta
+client = MongoClient(MONGODB_URI)
+
+db = client[DB_NAME]
 
 @app.route('/')
 def main():
